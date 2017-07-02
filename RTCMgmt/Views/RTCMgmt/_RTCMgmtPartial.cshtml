@@ -1,0 +1,62 @@
+﻿@using RTCMgmt.Models
+@model RTCMgmtWorkItemSummary
+
+@if (Model.WItemsSummary != null && Model.WItemsSummary.Count > 0)
+{
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header">
+                <i class="fa fa-list"></i><h3 class="box-title">Work Item Detail</h3>
+            </div>
+            <div class="box-body admin-content">
+                <table id="DashboardDataTbl" class="table table-bordered table-striped dashboard-data">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Create DateTime</th>
+                            <th>Update DateTime</th>
+                            <th>Comments</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.WItemsSummary)
+                        {
+                            <tr data-itemid="@item.ID" data-itemname="@item.Name" data-itemdescription="@item.Description">
+                                <td>@item.Name</td>
+                                <td>@item.Description</td>
+                                <td>@item.CreatedTime.ToString("MM/dd/yyyy")</td>
+                                <td>@item.UpdatedTime.ToString("MM/dd/yyyy")</td>
+                                <td>@item.Comments.First()</td>
+                                <td>
+                                    @if (item.Status == RTCWorkItemStatus.Pending)
+                                    { 
+                                        <a href="javascript:void(0)" data-toggle="tooltip" data-placement="bottom" title="Assign" class="btn btn-xs btn-default assignAction"><i class="fa fa-edit"></i> </a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="col-md-12">
+        <!-- DONUT CHART -->
+        <div class="box">
+            <div class="box-header with-border">
+                <i class="fa fa-users"></i> <h3 class="box-title">No Data</h3>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                Please selete the date range and try again.
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
+    </div>
+}

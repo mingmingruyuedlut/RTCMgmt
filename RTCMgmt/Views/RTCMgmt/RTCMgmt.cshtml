@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewBag.Title = "RTCMgmt";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@using RTCMgmt.Models
+@model RTCMgmtWorkItemSummary
+
+
+<section class="content-header">
+    <h1>
+        RTC Work Item
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+        <li class="active">RTC Work Item</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- LINE CHART -->
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">RTC Work Item</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body admin-content">
+                    <!-- Date and time range -->
+                    <label class="col-sm-1 control-label">Start Date</label>
+                    <input id=StartDate class="col-sm-2" />
+                    <label class="col-sm-1 control-label">End Date</label>
+                    <input id="EndDate" class="col-sm-2" />
+                    <label class="col-sm-1 control-label">User List</label>
+                        @Html.DropDownList("ClientUserId", Model.Users as List<SelectListItem>, "--All Users--", new { @class = "col-sm-2 form-control" })
+                    <label class="col-sm-1 control-label"></label>
+                    <button class="btn btn-default" id="reloadBtn">Reload</button>
+                </div>
+                <div class="box-body admin-content">
+                    <small>Count</small>
+                    <div class="chart work-item-daily">
+                        <canvas id="workItemDailyLineChart" style="height:300px"></canvas>
+                    </div>
+                </div>
+                <div class="box-body admin-content rtcmgmt-partial">
+                    @if (Model.WItemsSummary != null && Model.WItemsSummary.Count > 0)
+                    {
+                        @Html.Partial("_RTCMgmtPartial", Model)
+                    }
+                    else
+                    {
+                        <div class="col-md-12">
+                            <!-- DONUT CHART -->
+                            <div class="box">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-users"></i> <h3 class="box-title">No Data</h3>
+                                    <div class="box-tools pull-right">
+                                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                    </div>
+                                </div>
+                                <div class="box-body">
+                                    Please selete date range, and try again.
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="assignPopUp" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div id="assignContent" class="modal-content assignContent">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4>Assign: <span class="assignItemName" style="margin-left:10px;"></span><span class="assignItemDescription" style="margin-left:10px;"></span></h4>
+            </div>
+            <div class="modal-body">
+                <label class="redAsteriskBefore">Assign User Name</label>
+                <input type="text" class="assign-user-name" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary pull-right template-btn assign-save-btn"> Save</button>
+                <button type="button" class="btn btn-primary pull-right template-btn" data-dismiss="modal"> Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/rtcmgmt/RTCMgmtController.js"></script>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#StartDate").datepicker("setDate",  new Date(new Date().setDate(new Date().getDate()-30)));
+            $("#EndDate").datepicker("setDate", new Date());
+            bindRTCMgmtPageEvent();
+            initCommonDataTable('#DashboardDataTbl');
+            if(@Model.RTCMgmtViewChartSummary.WItemDateList.Count > 0){
+                initRTCMgmtLineChart(@(Html.Raw(Json.Encode(Model.RTCMgmtViewChartSummary.WItemDateList))), @(Html.Raw(Json.Encode(Model.RTCMgmtViewChartSummary.DailyCountList))));
+            }
+            else{
+                $('#workItemDailyLineChart').remove();
+                $('.work-item-daily').append('<canvas id="workItemDailyLineChart" style="height:300px"></canvas>');
+            }
+        });
+
+    </script>
+}

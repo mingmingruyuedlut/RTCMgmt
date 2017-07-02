@@ -1,0 +1,25 @@
+﻿
+<header class="main-header">
+    <!-- Logo -->
+    <a href="#" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><img alt="miniLogo" src="~/Images/photo4.jpg" /></span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><img alt="largeLogo" src="~/Images/photo4.jpg" height="40" width="267" /></span>
+    </a>
+    <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+        <div class="pull-right">
+            @Html.ActionLink("Home", "Index", "Home", new object(), new { @class = "btn btn-primary btn-flat btn-logout" })
+        </div>
+        <div class="pull-right">
+            @Html.ActionLink("RTC Management Home", "Index", "RTCMgmt", new object(), new { @class = "btn btn-primary btn-flat btn-logout" })
+        </div>
+    </nav>
+</header>
+
+
+

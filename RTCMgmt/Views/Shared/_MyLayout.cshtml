@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>My Layout</title>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/AdminLTE.min.css" />
+    <link rel="stylesheet" href="~/Content/_all-skins.min.css" />
+    <link rel="stylesheet" href="~/fonts/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/Content/site.css" />
+    <link rel="stylesheet" href="~/Content/rtcmgmt.css" />
+    <link rel="stylesheet" href="~/Scripts/plugins/datatables/dataTables.bootstrap.css" />
+    <link rel="stylesheet" href="~/Scripts/plugins/datepicker/datepicker3.css" />
+    <link rel="stylesheet" href="~/Scripts/plugins/timepicker/bootstrap-timepicker.min.css" />
+    <link rel="stylesheet" href="~/Scripts/plugins/daterangepicker/daterangepicker-bs3.css" />
+    <link rel="stylesheet" href="~/Scripts/plugins/morris/morris.css" />
+
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        @Html.Partial("_MyTopNavigation")
+
+        @Html.Partial("_MyNavigation")
+
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 1.1.0
+            </div>
+            <strong>&copy; 2017 <span class="text-light-blue">Asp.Net MVC/Web Api Testing</span></strong>
+        </footer>
+
+        <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <script src="~/Scripts/respond.min.js"></script>
+        <script src="~/Scripts/modernizr-2.6.2.js"></script>
+        <script src="~/Scripts/angularjs/angular.min.js"></script>
+
+        <script src="~/Scripts/rtcmgmt.js"></script>
+        <script src="~/Scripts/AdminLTE.App.min.js"></script>
+        <script src="~/Scripts/plugins/dataTables/jquery.dataTables.min.js"></script>
+        <script src="~/Scripts/plugins/dataTables/dataTables.bootstrap.min.js"></script>
+        <script src="~/Scripts/plugins/chartjs/Chart.js"></script>
+        <script src="~/Scripts/plugins/morris/raphael-min.js"></script>
+        <script src="~/Scripts/plugins/morris/morris.min.js"></script>
+        <script src="~/Scripts/plugins/datepicker/bootstrap-datepicker.js"></script>
+        <script src="~/Scripts/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+        <script src="~/Scripts/plugins/daterangepicker/moment.min.js"></script>
+        <script src="~/Scripts/plugins/daterangepicker/daterangepicker.js"></script>
+
+        @RenderSection("scripts", required: false)
+
+    </div>
+</body>
+</html>
